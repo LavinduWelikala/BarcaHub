@@ -11,15 +11,14 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long playerId;
 
-    private String playerName;
+    private String name;
     private int age;
-    private int height;
     private String position;
-    private int jercyNumber;
+    private int jerseyNumber;
     private String nationality;
 
-    @ManyToOne
-    @JoinColumn(name = "club_id")
-    private Club club;
+//    @ManyToOne
+//    @JoinColumn(name = "club_id")
+//    private Club club;
 
 }

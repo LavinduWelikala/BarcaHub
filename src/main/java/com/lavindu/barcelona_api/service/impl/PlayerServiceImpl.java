@@ -48,7 +48,7 @@ public class PlayerServiceImpl implements PlayerService {
             return pldto;
         }).collect(Collectors.toList());
         System.out.println(playerList.size());
-        
+
         return playerList;
 
 

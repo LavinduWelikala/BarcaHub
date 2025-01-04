@@ -3,6 +3,8 @@ package com.lavindu.barcelona_api.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "clubs")
@@ -20,5 +22,8 @@ public class Club {
         private String president;
         private String manager;
         private int foundedYear;
+
+        @OneToMany(mappedBy = "club")
+        private List<Player> player;
 
 }

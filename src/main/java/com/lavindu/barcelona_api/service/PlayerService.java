@@ -8,6 +8,8 @@ public interface PlayerService {
 
      void create(CreatePlayerDTO pldto);
 
+     void createPlayer(CreatePlayerDTO playerDTO, Long clubId);
+
 //    List<CreatePlayerDTO> getAllPlayers();
 
 //    CreatePlayerDTO getPlayerById(Long id);

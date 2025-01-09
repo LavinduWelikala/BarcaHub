@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface PlayerService {
 
-    public void create(CreatePlayerDTO pldto);
+     void create(CreatePlayerDTO pldto);
 
-    List<CreatePlayerDTO> getAllPlayers();
+//    List<CreatePlayerDTO> getAllPlayers();
 
 //    CreatePlayerDTO getPlayerById(Long id);
 //    CreatePlayerDTO updatePlayer(Long id, CreatePlayerDTO playerDTO);

@@ -32,28 +32,26 @@ public class PlayerServiceImpl implements PlayerService {
         playrepo.save(player);
     }
 
-    List<CreatePlayerDTO> playerList = new ArrayList<>();
-
-    @Override
-    public List<CreatePlayerDTO> getAllPlayers() {
-
-        playerList = playrepo.findAll().stream().map(player -> {
-            CreatePlayerDTO pldto = new CreatePlayerDTO();
-            pldto.setPlayerId(player.getPlayerId());
-            pldto.setName(player.getName());
-            pldto.setAge(player.getAge());
-            pldto.setPosition(player.getPosition());
-            pldto.setJerseyNumber(player.getJerseyNumber());
-            pldto.setNationality(player.getNationality());
-            return pldto;
-        }).collect(Collectors.toList());
-        System.out.println(playerList.size());
-
-        return playerList;
-
-
-
-    }
+//    List<CreatePlayerDTO> playerList = new ArrayList<>();
+//
+//    @Override
+//    public List<CreatePlayerDTO> getAllPlayers() {
+//
+//        playerList = playrepo.findAll().stream().map(player -> {
+//            CreatePlayerDTO pldto = new CreatePlayerDTO();
+//            pldto.setPlayerId(player.getPlayerId());
+//            pldto.setName(player.getName());
+//            pldto.setAge(player.getAge());
+//            pldto.setPosition(player.getPosition());
+//            pldto.setJerseyNumber(player.getJerseyNumber());
+//            pldto.setNationality(player.getNationality());
+//            return pldto;
+//        }).collect(Collectors.toList());
+//        System.out.println(playerList.size());
+//
+//        return playerList;
+//
+//    }
 
 //    @Override
 //    public CreatePlayerDTO getPlayerById(Long id) {

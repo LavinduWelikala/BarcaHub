@@ -5,8 +5,7 @@ import lombok.Data;
 @Data
 public class CreatePlayerDTO {
 
-
-        private Long playerId;
+//        private Long playerId;
         private String name;
         private String position;
         private int age;

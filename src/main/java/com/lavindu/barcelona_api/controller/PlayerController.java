@@ -21,9 +21,9 @@ public class PlayerController {
         playerService.create(dto);
     }
 
-    @GetMapping("/players")
-    public List<CreatePlayerDTO> getAllPlayers() {
-        return playerService.getAllPlayers();
-    }
+//    @GetMapping("/players")
+//    public List<CreatePlayerDTO> getAllPlayers() {
+//        return playerService.getAllPlayers();
+//    }
 
 }

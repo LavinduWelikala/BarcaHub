@@ -16,9 +16,7 @@ public class Club {
         private Long clubId;
 
         private String name;
-        private String crest;
         private String motto;
-        private String anthem;
         private String president;
         private String manager;
         private int foundedYear;

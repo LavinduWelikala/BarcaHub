@@ -14,11 +14,12 @@ public class Player {
     private String name;
     private Integer age;
     private String position;
-    private Integer jerseyNumber;
     private String nationality;
+    private Integer jerseyNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "club_id", nullable = false)
-    private Club club;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "club_id", nullable = false)
+//    private Club club;
 
 }

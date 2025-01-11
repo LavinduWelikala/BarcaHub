@@ -1,83 +1,141 @@
 package com.lavindu.barcelona_api.service.impl;
 
 import com.lavindu.barcelona_api.controller.request.CreatePlayerDTO;
-import com.lavindu.barcelona_api.model.Club;
+import com.lavindu.barcelona_api.exception.PlayerAlreadyExistException;
 import com.lavindu.barcelona_api.model.Player;
-import com.lavindu.barcelona_api.repository.ClubRepository;
 import com.lavindu.barcelona_api.repository.PlayerRepository;
 import com.lavindu.barcelona_api.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import java.util.Optional;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
-    private PlayerRepository playrepository;
+    private PlayerRepository playerRepository;
 
-    @Autowired
-    private ClubRepository clubRepository;
-
-
+    @Transactional(rollbackFor = PlayerAlreadyExistException.class)
     @Override
-    public void create(CreatePlayerDTO playerDTO) {
-        // Find the club by ID from the playerDTO
-        Club club = clubRepository.findById(playerDTO.getClubId())
-                .orElseThrow(() -> new RuntimeException("Club not found"));
+    public void create(CreatePlayerDTO playerDTO) throws PlayerAlreadyExistException {
 
-        // Create a new player and populate its fields
-        Player player = new Player();
-        player.setName(playerDTO.getName());
-        player.setAge(playerDTO.getAge());
-        player.setPosition(playerDTO.getPosition());
-        player.setNationality(playerDTO.getNationality());
-        player.setJerseyNumber(playerDTO.getJerseyNumber());
+        Optional<Player> playerOptional = playerRepository.findByName(playerDTO.getName());
 
-        // Associate the player with the club
-        player.setClub(club);
+        if (playerOptional.isPresent()) {
+            throw new PlayerAlreadyExistException("Player already exists");
+        }
 
-        // Save the player directly
-        playrepository.save(player);
-    }
+        else{
 
-    @Override
-    public void createPlayer(CreatePlayerDTO playerDTO, Long clubId) {
-        Club club = clubRepository.findById(clubId)
-                .orElseThrow(() -> new RuntimeException("Club not found"));
+            Player player = new Player();
 
-        // Create and set up a new player
-        Player player = new Player();
-        player.setName(playerDTO.getName());
-        player.setAge(playerDTO.getAge());
-        player.setPosition(playerDTO.getPosition());
-        player.setJerseyNumber(playerDTO.getJerseyNumber());
-        player.setNationality(playerDTO.getNationality());
+            player.setName(playerDTO.getName());
+            player.setAge(playerDTO.getAge());
+            player.setPosition(playerDTO.getPosition());
+            player.setNationality(playerDTO.getNationality());
+            player.setJerseyNumber(playerDTO.getJerseyNumber());
 
-        // Associate the player with the club
-        club.addPlayer(player);
+            playerRepository.save(player);
 
-        // Save the club, which also saves the player due to the cascade
-        clubRepository.save(club);
+        }
+
+
+
 
     }
+}
 
-    @Override
-    public List<CreatePlayerDTO> getAllPlayers() {
-        List<Player> players = playrepository.findAll();
-        return players.stream().map(player -> {
-            CreatePlayerDTO dto = new CreatePlayerDTO();
-            dto.setName(player.getName());
-            dto.setAge(player.getAge());
-            dto.setPosition(player.getPosition());
-            dto.setNationality(player.getNationality());
-            dto.setJerseyNumber(player.getJerseyNumber());
-            return dto;
-        }).collect(Collectors.toList());
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    @Autowired
+//    private ClubRepository clubRepository;
+//
+//
+//    @Override
+//    public void create(CreatePlayerDTO playerDTO) {
+//        // Find the club by ID from the playerDTO
+//        Club club = clubRepository.findById(playerDTO.getClubId())
+//                .orElseThrow(() -> new RuntimeException("Club not found"));
+//
+//        // Create a new player and populate its fields
+//        Player player = new Player();
+//        player.setName(playerDTO.getName());
+//        player.setAge(playerDTO.getAge());
+//        player.setPosition(playerDTO.getPosition());
+//        player.setNationality(playerDTO.getNationality());
+//        player.setJerseyNumber(playerDTO.getJerseyNumber());
+//
+//        // Associate the player with the club
+//        player.setClub(club);
+//
+//        // Save the player directly
+//        playrepository.save(player);
+//    }
+//
+//    @Override
+//    public void createPlayer(CreatePlayerDTO playerDTO, Long clubId) {
+//        Club club = clubRepository.findById(clubId)
+//                .orElseThrow(() -> new RuntimeException("Club not found"));
+//
+//        // Create and set up a new player
+//        Player player = new Player();
+//        player.setName(playerDTO.getName());
+//        player.setAge(playerDTO.getAge());
+//        player.setPosition(playerDTO.getPosition());
+//        player.setJerseyNumber(playerDTO.getJerseyNumber());
+//        player.setNationality(playerDTO.getNationality());
+//
+//        // Associate the player with the club
+//        club.addPlayer(player);
+//
+//        // Save the club, which also saves the player due to the cascade
+//        clubRepository.save(club);
+//
+//    }
+
+//    @Override
+//    public List<CreatePlayerDTO> getAllPlayers() {
+//        List<Player> players = playrepository.findAll();
+//        return players.stream().map(player -> {
+//            CreatePlayerDTO dto = new CreatePlayerDTO();
+//            dto.setName(player.getName());
+//            dto.setAge(player.getAge());
+//            dto.setPosition(player.getPosition());
+//            dto.setNationality(player.getNationality());
+//            dto.setJerseyNumber(player.getJerseyNumber());
+//            return dto;
+//        }).collect(Collectors.toList());
+//    }
 
 
 
@@ -129,4 +187,4 @@ public class PlayerServiceImpl implements PlayerService {
 //    public void deletePlayer(Long id) {
 //
 //    }
-}
+

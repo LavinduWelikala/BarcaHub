@@ -65,6 +65,19 @@ public class PlayerServiceImpl implements PlayerService {
 
     }
 
+    @Override
+    public List<CreatePlayerDTO> getAllPlayers() {
+        List<Player> players = playrepository.findAll();
+        return players.stream().map(player -> {
+            CreatePlayerDTO dto = new CreatePlayerDTO();
+            dto.setName(player.getName());
+            dto.setAge(player.getAge());
+            dto.setPosition(player.getPosition());
+            dto.setNationality(player.getNationality());
+            dto.setJerseyNumber(player.getJerseyNumber());
+            return dto;
+        }).collect(Collectors.toList());
+    }
 
 
 

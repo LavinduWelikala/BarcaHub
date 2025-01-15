@@ -22,8 +22,10 @@ public class Club {
         private String manager;
         private int foundedYear;
 
-//        @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
-//        private List<Player> players = new ArrayList<>();
+//        @OneToMany(mappedBy = "club")
+//        private List<Player> playerList;
+
+
 //
 //        public void addPlayer(Player player) {
 //                players.add(player);

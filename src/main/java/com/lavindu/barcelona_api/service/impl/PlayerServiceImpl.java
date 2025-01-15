@@ -2,6 +2,7 @@ package com.lavindu.barcelona_api.service.impl;
 
 import com.lavindu.barcelona_api.controller.request.CreatePlayerDTO;
 import com.lavindu.barcelona_api.exception.PlayerAlreadyExistException;
+import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.model.Player;
 import com.lavindu.barcelona_api.repository.PlayerRepository;
 import com.lavindu.barcelona_api.service.PlayerService;
@@ -38,7 +39,7 @@ public class PlayerServiceImpl implements PlayerService {
             player.setPosition(playerDTO.getPosition());
             player.setNationality(playerDTO.getNationality());
             player.setJerseyNumber(playerDTO.getJerseyNumber());
-
+            
             playerRepository.save(player);
 
         }

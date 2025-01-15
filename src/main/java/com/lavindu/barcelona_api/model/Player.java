@@ -17,9 +17,9 @@ public class Player {
     private String nationality;
     private Integer jerseyNumber;
 
-//
-//    @ManyToOne
-//    @JoinColumn(name = "club_id", nullable = false)
-//    private Club club;
+
+    @ManyToOne
+    @JoinColumn(name = "club_id", nullable = false)
+    private Club club;
 
 }

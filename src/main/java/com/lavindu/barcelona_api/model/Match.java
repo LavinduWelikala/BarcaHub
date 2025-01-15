@@ -17,16 +17,16 @@ public class Match {
     private int homeScore;
     private int awayScore;
 
-//    @ManyToOne
-//    @JoinColumn(name = "home_team_id")
-//    private Club homeTeam;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "away_team_id")
-//    private Club awayTeam;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "stadium_id")
-//    private Stadium stadium;
+    @ManyToOne
+    @JoinColumn(name = "home_team_id")
+    private Club homeTeam;
+
+    @ManyToOne
+    @JoinColumn(name = "away_team_id")
+    private Club awayTeam;
+
+    @ManyToOne
+    @JoinColumn(name = "stadium_id")
+    private Stadium stadium;
 
 }

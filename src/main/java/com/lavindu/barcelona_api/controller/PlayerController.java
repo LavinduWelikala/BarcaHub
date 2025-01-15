@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class PlayerController {
@@ -15,8 +16,9 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    @PostMapping("/players")
-    public void createClub(@RequestBody CreatePlayerDTO playerDto) throws PlayerAlreadyExistException {
+    @PostMapping("/clubs/{club-id}/players")
+    public void createClub(@PathVariable ("club-id") Long clubId,
+            @RequestBody CreatePlayerDTO playerDto) throws PlayerAlreadyExistException {
 
         playerService.create(playerDto);
     }
@@ -24,8 +26,8 @@ public class PlayerController {
     @GetMapping("/players")
     public List<Player> getAllPlayers() {
         return playerService.getAllPlayers();
-    }
 
+    }
 
 }
 

@@ -22,8 +22,9 @@ public class Club {
         private String manager;
         private int foundedYear;
 
-//        @OneToMany(mappedBy = "club")
-//        private List<Player> playerList;
+        @OneToMany(mappedBy = "club")
+        private List<Player> playerList;
+
 
 
 //

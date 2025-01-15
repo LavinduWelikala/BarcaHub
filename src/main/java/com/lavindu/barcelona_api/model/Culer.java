@@ -1,9 +1,6 @@
 package com.lavindu.barcelona_api.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -20,4 +17,5 @@ public class Culer {
     private Integer age;
     private String country;
     private String password;
+
 }

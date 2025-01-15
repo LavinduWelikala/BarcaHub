@@ -2,10 +2,10 @@ package com.lavindu.barcelona_api.service;
 
 import com.lavindu.barcelona_api.controller.request.CreatePlayerDTO;
 import com.lavindu.barcelona_api.exception.PlayerAlreadyExistException;
-import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.model.Player;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PlayerService {
 

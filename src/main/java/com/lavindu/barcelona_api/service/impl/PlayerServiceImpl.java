@@ -34,11 +34,17 @@ public class PlayerServiceImpl implements PlayerService {
 
             Player player = new Player();
 
+            Club club = new Club();
+
+            club.setClubId(playerDTO.getClubId());
+
             player.setName(playerDTO.getName());
             player.setAge(playerDTO.getAge());
             player.setPosition(playerDTO.getPosition());
             player.setNationality(playerDTO.getNationality());
             player.setJerseyNumber(playerDTO.getJerseyNumber());
+
+            player.setClub(club);
             
             playerRepository.save(player);
 
@@ -49,6 +55,7 @@ public class PlayerServiceImpl implements PlayerService {
     public List<Player> getAllPlayers() {
         return playerRepository.findAll();
     }
+
 }
 
 

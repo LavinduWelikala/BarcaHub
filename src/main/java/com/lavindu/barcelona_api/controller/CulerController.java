@@ -1,7 +1,7 @@
 package com.lavindu.barcelona_api.controller;
 
 import com.lavindu.barcelona_api.controller.request.CreateCulerDTO;
-import com.lavindu.barcelona_api.exception.CulerAlreadyExistException;
+import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.service.CulerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +15,7 @@ public class CulerController {
     private CulerService culerService;
 
     @PostMapping("/culers")
-    public void registerUser(@RequestBody CreateCulerDTO culerDTO) throws CulerAlreadyExistException {
+    public void registerUser(@RequestBody CreateCulerDTO culerDTO) throws AlreadyExistException {
 
         culerService.createCuler(culerDTO);
     }

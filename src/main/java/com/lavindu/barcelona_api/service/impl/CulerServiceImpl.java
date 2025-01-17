@@ -1,7 +1,7 @@
 package com.lavindu.barcelona_api.service.impl;
 
 import com.lavindu.barcelona_api.controller.request.CreateCulerDTO;
-import com.lavindu.barcelona_api.exception.CulerAlreadyExistException;
+import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.model.Culer;
 import com.lavindu.barcelona_api.repository.CulerRepository;
 import com.lavindu.barcelona_api.service.CulerService;
@@ -17,12 +17,12 @@ public class CulerServiceImpl implements CulerService {
     private CulerRepository culerRepository;
 
     @Override
-    public void createCuler(CreateCulerDTO culerDTO) throws CulerAlreadyExistException {
+    public void createCuler(CreateCulerDTO culerDTO) throws AlreadyExistException {
 
         Optional<Culer> culerOptional = culerRepository.findByName(culerDTO.getName());
 
         if (culerOptional.isPresent()) {
-            throw new CulerAlreadyExistException("Culer already exists");
+            throw new AlreadyExistException("Culer already exists");
         }
 
         else{

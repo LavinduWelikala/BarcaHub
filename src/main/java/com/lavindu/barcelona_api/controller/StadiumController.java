@@ -1,7 +1,7 @@
 package com.lavindu.barcelona_api.controller;
 
 import com.lavindu.barcelona_api.controller.request.CreateStadiumDTO;
-import com.lavindu.barcelona_api.exception.StadiumAlreadyExistException;
+import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.service.StadiumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +15,7 @@ public class StadiumController {
     private StadiumService stadiumService;
 
     @PostMapping("/stadiums")
-    public void create(@RequestBody CreateStadiumDTO stadiumDTO) throws StadiumAlreadyExistException {
+    public void create(@RequestBody CreateStadiumDTO stadiumDTO) throws AlreadyExistException {
 
         stadiumService.createStadium(stadiumDTO);
 

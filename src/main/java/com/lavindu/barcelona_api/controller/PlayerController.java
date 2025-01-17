@@ -1,14 +1,17 @@
 package com.lavindu.barcelona_api.controller;
 
 import com.lavindu.barcelona_api.controller.request.CreatePlayerDTO;
-import com.lavindu.barcelona_api.exception.PlayerAlreadyExistException;
+import com.lavindu.barcelona_api.controller.response.ClubResponse;
+import com.lavindu.barcelona_api.controller.response.PlayerResponse;
+import com.lavindu.barcelona_api.exception.AlreadyExistException;
+import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.model.Player;
 import com.lavindu.barcelona_api.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class PlayerController {
@@ -18,15 +21,36 @@ public class PlayerController {
 
     @PostMapping("/clubs/{club-id}/players")
     public void createClub(@PathVariable ("club-id") Long clubId,
-            @RequestBody CreatePlayerDTO playerDto) throws PlayerAlreadyExistException {
+            @RequestBody CreatePlayerDTO playerDto) throws AlreadyExistException {
 
         playerService.create(playerDto);
     }
 
     @GetMapping("/players")
-    public List<Player> getAllPlayers() {
-        return playerService.getAllPlayers();
+    public List<PlayerResponse> getAllPlayers() {
 
+        List<Player> playerList = playerService.getAllPlayers();
+
+        List<PlayerResponse> playerResponses = new ArrayList<>();
+
+        for (Player player : playerList) {
+
+            PlayerResponse response = new PlayerResponse();
+            response.setId(player.getId());
+            response.setClubId(player.getClub().getId());
+
+            response.setName(player.getName());
+            response.setAge(player.getAge());
+            response.setNationality(player.getNationality());
+            response.setPosition(player.getPosition());
+            response.setJerseyNumber(player.getJerseyNumber());
+            
+            response.setClubId(player.getClub().getId());
+
+
+            playerResponses.add(response);
+        }
+        return playerResponses;
     }
 
 }

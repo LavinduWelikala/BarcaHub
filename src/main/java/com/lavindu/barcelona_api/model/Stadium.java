@@ -13,7 +13,7 @@ public class Stadium {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long stadiumId;
+    private Long id;
 
     private String name;
     private String location;

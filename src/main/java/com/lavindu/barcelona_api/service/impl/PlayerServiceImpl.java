@@ -1,7 +1,7 @@
 package com.lavindu.barcelona_api.service.impl;
 
 import com.lavindu.barcelona_api.controller.request.CreatePlayerDTO;
-import com.lavindu.barcelona_api.exception.PlayerAlreadyExistException;
+import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.model.Player;
 import com.lavindu.barcelona_api.repository.PlayerRepository;
@@ -20,14 +20,14 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
-    @Transactional(rollbackFor = PlayerAlreadyExistException.class)
+    @Transactional(rollbackFor = AlreadyExistException.class)
     @Override
-    public void create(CreatePlayerDTO playerDTO) throws PlayerAlreadyExistException {
+    public void create(CreatePlayerDTO playerDTO) throws AlreadyExistException {
 
         Optional<Player> playerOptional = playerRepository.findByName(playerDTO.getName());
 
         if (playerOptional.isPresent()) {
-            throw new PlayerAlreadyExistException("Player already exists");
+            throw new AlreadyExistException("Player already exists");
         }
 
         else{
@@ -36,7 +36,7 @@ public class PlayerServiceImpl implements PlayerService {
 
             Club club = new Club();
 
-            club.setClubId(playerDTO.getClubId());
+            club.setId(playerDTO.getClubId());
 
             player.setName(playerDTO.getName());
             player.setAge(playerDTO.getAge());

@@ -2,8 +2,10 @@ package com.lavindu.barcelona_api.service.impl;
 
 import com.lavindu.barcelona_api.controller.request.CreatePlayerDTO;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
+import com.lavindu.barcelona_api.exception.NotFoundException;
 import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.model.Player;
+import com.lavindu.barcelona_api.repository.ClubRepository;
 import com.lavindu.barcelona_api.repository.PlayerRepository;
 import com.lavindu.barcelona_api.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
     private PlayerRepository playerRepository;
+
+    @Autowired
+    private ClubRepository clubRepository;
 
     @Transactional(rollbackFor = AlreadyExistException.class)
     @Override
@@ -53,8 +58,21 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> getAllPlayers() {
+
         return playerRepository.findAll();
     }
+
+//    @Override
+//    public List<Player> getAllPlayersByClubId(Long clubId) throws NotFoundException {
+//
+//        Club club = clubRepository.findById(clubId).orElseThrow(
+//                () -> new NotFoundException("Club ID " + clubId + " Not Found"));
+//
+//        List<Player> players = playerRepository.findByClub(club);
+//
+//        return players;
+//    }
+
 
 }
 

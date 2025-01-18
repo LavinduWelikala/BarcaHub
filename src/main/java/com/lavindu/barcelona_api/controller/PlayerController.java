@@ -55,28 +55,28 @@ public class PlayerController {
     }
 
 
-//    @GetMapping("/clubs/{club-id}/players")
-//    public List<PlayerResponse> getPlayersById(@PathVariable("club-id") Long clubId ) throws NotFoundException {
-//
-//        List<Player> playerList = playerService.getAllPlayersByClubId(clubId);
-//
-//        List<PlayerResponse> playerResponseList = new ArrayList<>();
-//
-//        for (Player player : playerList) {
-//            PlayerResponse response = new PlayerResponse();
-//
-//            response.setId(player.getId());
-//            response.setName(player.getName());
-//            response.setAge(player.getAge());
-//            response.setNationality(player.getNationality());
-//            response.setPosition(player.getPosition());
-//            response.setJerseyNumber(player.getJerseyNumber());
-//            response.setClubId(player.getClub().getId());
-//
-//            playerResponseList.add(response);
-//        }
-//        return playerResponseList;
-//    }
+    @GetMapping("/clubs/{club-id}/players")
+    public List<PlayerResponse> getPlayersById(@PathVariable("club-id") Long clubId ) throws NotFoundException {
+
+        List<Player> playerList = playerService.getAllPlayersByClubId(clubId);
+
+        List<PlayerResponse> playerResponseList = new ArrayList<>();
+
+        for (Player player : playerList) {
+            PlayerResponse response = new PlayerResponse();
+
+            response.setId(player.getId());
+            response.setName(player.getName());
+            response.setAge(player.getAge());
+            response.setNationality(player.getNationality());
+            response.setPosition(player.getPosition());
+            response.setJerseyNumber(player.getJerseyNumber());
+            response.setClubId(player.getClub().getId());
+
+            playerResponseList.add(response);
+        }
+        return playerResponseList;
+    }
 
 }
 

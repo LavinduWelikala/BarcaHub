@@ -13,7 +13,7 @@ public interface PlayerService {
 
      List<Player> getAllPlayers();
 
-//     List<Player> getAllPlayersByClubId(Long clubId) throws NotFoundException;
+     List<Player> getAllPlayersByClubId(Long clubId) throws NotFoundException;
 
 }
 

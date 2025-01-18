@@ -62,16 +62,16 @@ public class PlayerServiceImpl implements PlayerService {
         return playerRepository.findAll();
     }
 
-//    @Override
-//    public List<Player> getAllPlayersByClubId(Long clubId) throws NotFoundException {
-//
-//        Club club = clubRepository.findById(clubId).orElseThrow(
-//                () -> new NotFoundException("Club ID " + clubId + " Not Found"));
-//
-//        List<Player> players = playerRepository.findByClub(club);
-//
-//        return players;
-//    }
+    @Override
+    public List<Player> getAllPlayersByClubId(Long clubId) throws NotFoundException {
+
+        Club club = clubRepository.findById(clubId).orElseThrow(
+                () -> new NotFoundException("Club ID " + clubId + " Not Found"));
+
+        List<Player> players = playerRepository.findByClub(club);
+
+        return players;
+    }
 
 
 }

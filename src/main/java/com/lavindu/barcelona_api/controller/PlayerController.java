@@ -5,6 +5,7 @@ import com.lavindu.barcelona_api.controller.response.ClubResponse;
 import com.lavindu.barcelona_api.controller.response.PlayerResponse;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.NotFoundException;
+import com.lavindu.barcelona_api.exception.PlayerNotFoundException;
 import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.model.Player;
 import com.lavindu.barcelona_api.service.PlayerService;
@@ -24,7 +25,7 @@ public class PlayerController {
     public void createClub(@PathVariable ("club-id") Long clubId,
             @RequestBody CreatePlayerDTO playerDto) throws AlreadyExistException {
 
-        playerService.create(playerDto);
+        playerService.create(clubId, playerDto);
     }
 
     @GetMapping("/players")
@@ -78,6 +79,12 @@ public class PlayerController {
         return playerResponseList;
     }
 
+    @PutMapping("players/{player-id}")
+    public void updatePlayer(@RequestBody CreatePlayerDTO playerDTO,
+                             @PathVariable ("player-id") Long playerId) throws PlayerNotFoundException {
+
+        playerService.updateById(playerId,playerDTO);
+    }
 }
 
 

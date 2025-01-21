@@ -25,19 +25,4 @@ public class Club {
         @OneToMany(mappedBy = "club")
         private List<Player> playerList;
 
-
-
-//
-//        public void addPlayer(Player player) {
-//                players.add(player);
-//                player.setClub(this);
-//        }
-//
-//        public void removePlayer(Player player) {
-//                players.remove(player);
-//                player.setClub(null);
-//        }
-
-
-
 }

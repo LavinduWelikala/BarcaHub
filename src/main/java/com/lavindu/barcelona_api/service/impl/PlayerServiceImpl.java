@@ -3,6 +3,7 @@ package com.lavindu.barcelona_api.service.impl;
 import com.lavindu.barcelona_api.controller.request.CreatePlayerDTO;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.NotFoundException;
+import com.lavindu.barcelona_api.exception.PlayerNotFoundException;
 import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.model.Player;
 import com.lavindu.barcelona_api.repository.ClubRepository;
@@ -27,7 +28,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Transactional(rollbackFor = AlreadyExistException.class)
     @Override
-    public void create(CreatePlayerDTO playerDTO) throws AlreadyExistException {
+    public void create(Long clubId, CreatePlayerDTO playerDTO) throws AlreadyExistException {
 
         Optional<Player> playerOptional = playerRepository.findByName(playerDTO.getName());
 
@@ -71,6 +72,23 @@ public class PlayerServiceImpl implements PlayerService {
         List<Player> players = playerRepository.findByClub(club);
 
         return players;
+    }
+
+    @Override
+    public Player updateById(Long playerId, CreatePlayerDTO playerDTO) throws PlayerNotFoundException {
+
+        Player existingPlayer = playerRepository.findById(playerId).orElseThrow(
+                () -> new PlayerNotFoundException("Player ID " + playerId + " Not Found"));
+
+        existingPlayer.setName(playerDTO.getName());
+        existingPlayer.setAge(playerDTO.getAge());
+        existingPlayer.setPosition(playerDTO.getPosition());
+        existingPlayer.setNationality(playerDTO.getNationality());
+        existingPlayer.setJerseyNumber(playerDTO.getJerseyNumber());
+
+        playerRepository.save(existingPlayer);
+
+        return existingPlayer;
     }
 
 

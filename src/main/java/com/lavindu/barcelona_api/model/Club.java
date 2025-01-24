@@ -3,7 +3,7 @@ package com.lavindu.barcelona_api.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Data
@@ -13,7 +13,7 @@ public class Club {
 
 
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;
 
         private String name;

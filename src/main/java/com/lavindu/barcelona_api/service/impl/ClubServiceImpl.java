@@ -3,7 +3,7 @@ package com.lavindu.barcelona_api.service.impl;
 import com.lavindu.barcelona_api.controller.request.CreateClubDTO;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.model.Club;
-import com.lavindu.barcelona_api.repository.ClubRepository;
+import com.lavindu.barcelona_api.repository.ClubRepo;
 import com.lavindu.barcelona_api.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,13 +16,13 @@ import java.util.Optional;
 public class ClubServiceImpl implements ClubService {
 
     @Autowired
-    private ClubRepository clubRepository;
+    private ClubRepo clubRepo;
 
     @Override
     @Transactional(rollbackFor = AlreadyExistException.class)
     public void createPlayer(CreateClubDTO clubDTO) throws AlreadyExistException{
 
-       Optional<Club> optionalClub = clubRepository.findByName(clubDTO.getName());
+       Optional<Club> optionalClub = clubRepo.findByName(clubDTO.getName());
 
         if (optionalClub.isPresent()) {
             throw new AlreadyExistException("Club already exists");
@@ -37,14 +37,14 @@ public class ClubServiceImpl implements ClubService {
             club.setManager(clubDTO.getManager());
             club.setFoundedYear(clubDTO.getFoundedYear());
 
-            clubRepository.save(club);
+            clubRepo.save(club);
 
         }
     }
 
     @Override
     public List<Club> getAllClubs() {
-        return clubRepository.findAll();
+        return clubRepo.findAll();
     }
 
 

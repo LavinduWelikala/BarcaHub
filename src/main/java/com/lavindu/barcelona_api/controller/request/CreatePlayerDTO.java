@@ -12,8 +12,4 @@ public class CreatePlayerDTO {
         private String nationality;
         private int jerseyNumber;
 
-        private Long clubId;
-
-
-
 }

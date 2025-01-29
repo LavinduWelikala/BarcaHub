@@ -20,12 +20,11 @@ import java.util.Optional;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
-
     private PlayerRepository playerRepository;
     private ClubRepository clubRepository;
 
     @Override
-    public void create(Long clubId, CreatePlayerDTO playerDTO) throws AlreadyExistException {
+    public Player create(Long clubId, CreatePlayerDTO playerDTO) throws AlreadyExistException {
 
         Optional<Player> playerOptional = playerRepository.findByName(playerDTO.getName());
 
@@ -49,19 +48,19 @@ public class PlayerServiceImpl implements PlayerService {
 
             player.setClub(club);
             
-            playerRepository.save(player);
+            return playerRepository.save(player);
 
         }
     }
 
     @Override
-    public List<Player> getAllPlayers() {
+    public List<Player> findAll() {
 
         return playerRepository.findAll();
     }
 
     @Override
-    public List<Player> getAllPlayersByClubId(Long clubId) throws NotFoundException {
+    public List<Player> findAllByClubId(Long clubId) throws NotFoundException {
 
         Club club = clubRepository.findById(clubId).orElseThrow(
                 () -> new NotFoundException("Club ID " + clubId + " Not Found"));

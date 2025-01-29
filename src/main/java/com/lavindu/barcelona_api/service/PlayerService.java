@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface PlayerService {
 
-     void create(Long clubId, CreatePlayerDTO playerDTO) throws AlreadyExistException;
+     Player create(Long clubId, CreatePlayerDTO playerDTO) throws AlreadyExistException;
 
-     List<Player> getAllPlayers();
+     List<Player> findAll();
 
-     List<Player> getAllPlayersByClubId(Long clubId) throws NotFoundException;
+     List<Player> findAllByClubId(Long clubId) throws NotFoundException;
 
      Player updateById(Long playerId, CreatePlayerDTO playerDTO) throws PlayerNotFoundException;
 

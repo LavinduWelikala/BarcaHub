@@ -87,5 +87,11 @@ public class PlayerServiceImpl implements PlayerService {
         return existingPlayer;
     }
 
+    @Override
+    public void deleteById(Long playerId) {
+
+        playerRepository.deleteById(playerId);
+    }
+
 
 }

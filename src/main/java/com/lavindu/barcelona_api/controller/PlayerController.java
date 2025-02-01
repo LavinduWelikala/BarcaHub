@@ -107,6 +107,11 @@ public class PlayerController {
 
         return response;
     }
+    @DeleteMapping("/players/{player-id}")
+    public void deleteById(@PathVariable("player-id") Long playerId){
+
+        playerService.deleteById(playerId);
+    }
 }
 
 

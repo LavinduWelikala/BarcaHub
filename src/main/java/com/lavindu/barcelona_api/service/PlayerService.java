@@ -18,6 +18,8 @@ public interface PlayerService {
 
      Player updateById(Long playerId, CreatePlayerDTO playerDTO) throws PlayerNotFoundException;
 
+     void deleteById(Long playerId);
+
 }
 
 

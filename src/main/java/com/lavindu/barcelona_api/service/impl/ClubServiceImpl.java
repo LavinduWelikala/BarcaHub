@@ -2,6 +2,7 @@ package com.lavindu.barcelona_api.service.impl;
 
 import com.lavindu.barcelona_api.controller.request.CreateClubDTO;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
+import com.lavindu.barcelona_api.exception.ClubNotFoundException;
 import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.repository.ClubRepository;
 import com.lavindu.barcelona_api.service.ClubService;
@@ -20,7 +21,7 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     @Transactional(rollbackFor = AlreadyExistException.class)
-    public void createPlayer(CreateClubDTO clubDTO) throws AlreadyExistException{
+    public Club create(CreateClubDTO clubDTO) throws AlreadyExistException{
 
        Optional<Club> optionalClub = clubRepository.findByName(clubDTO.getName());
 
@@ -37,14 +38,25 @@ public class ClubServiceImpl implements ClubService {
             club.setManager(clubDTO.getManager());
             club.setFoundedYear(clubDTO.getFoundedYear());
 
-            clubRepository.save(club);
+           return clubRepository.save(club);
 
         }
     }
 
     @Override
     public List<Club> getAllClubs() {
+
         return clubRepository.findAll();
+    }
+
+    @Override
+    public Club findById(Long clubId) throws ClubNotFoundException {
+
+        Club club = clubRepository.findById(clubId).orElseThrow(
+                () -> new ClubNotFoundException("Club ID " + clubId + " Not Found")
+        );
+
+        return club;
     }
 
 

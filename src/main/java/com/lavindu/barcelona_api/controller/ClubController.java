@@ -4,13 +4,11 @@ package com.lavindu.barcelona_api.controller;
 import com.lavindu.barcelona_api.controller.request.CreateClubDTO;
 import com.lavindu.barcelona_api.controller.response.ClubResponse;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
+import com.lavindu.barcelona_api.exception.ClubNotFoundException;
 import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +20,19 @@ public class ClubController {
     private ClubService clubService;
 
     @PostMapping("/clubs")
-    public void create(@RequestBody CreateClubDTO dto) throws AlreadyExistException {
-        clubService.createPlayer(dto);
+    public ClubResponse create(@RequestBody CreateClubDTO dto) throws AlreadyExistException {
+        Club club = clubService.create(dto);
+
+        ClubResponse response = new ClubResponse();
+
+        response.setClubId(club.getId());
+        response.setName(club.getName());
+        response.setMotto(club.getMotto());
+        response.setPresident(club.getPresident());
+        response.setManager(club.getManager());
+        response.setFoundedYear(club.getFoundedYear());
+
+        return response;
     }
 
     @GetMapping("/clubs")
@@ -50,4 +59,20 @@ public class ClubController {
         return clubResponses;
     }
 
+    @GetMapping("/clubs/{club-id}")
+    public ClubResponse findById(@PathVariable("club-id") Long clubId) throws ClubNotFoundException {
+
+        Club club = clubService.findById(clubId);
+
+        ClubResponse response = new ClubResponse();
+
+        response.setClubId(club.getId());
+        response.setName(club.getName());
+        response.setMotto(club.getMotto());
+        response.setPresident(club.getPresident());
+        response.setManager(club.getManager());
+        response.setFoundedYear(club.getFoundedYear());
+
+        return response;
+    }
 }

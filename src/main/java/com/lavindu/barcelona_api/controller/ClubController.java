@@ -7,6 +7,7 @@ import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.ClubNotFoundException;
 import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.service.ClubService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class ClubController {
     private ClubService clubService;
 
     @PostMapping("/clubs")
-    public ClubResponse create(@RequestBody CreateClubDTO dto) throws AlreadyExistException {
+    public ClubResponse create(@Valid @RequestBody CreateClubDTO dto) throws AlreadyExistException {
         Club club = clubService.create(dto);
 
         ClubResponse response = new ClubResponse();
@@ -72,6 +73,24 @@ public class ClubController {
         response.setPresident(club.getPresident());
         response.setManager(club.getManager());
         response.setFoundedYear(club.getFoundedYear());
+
+        return response;
+    }
+
+    @PutMapping("/clubs/{club-id}")
+    public ClubResponse updateById(@PathVariable("club-id") Long clubId,
+                                   @RequestBody CreateClubDTO clubDTO) throws ClubNotFoundException {
+
+        Club updatedClub = clubService.updateById(clubId,clubDTO);
+
+        ClubResponse response = new ClubResponse();
+
+        response.setClubId(updatedClub.getId());
+        response.setName(updatedClub.getName());
+        response.setMotto(updatedClub.getMotto());
+        response.setPresident(updatedClub.getPresident());
+        response.setManager(updatedClub.getManager());
+        response.setFoundedYear(updatedClub.getFoundedYear());
 
         return response;
     }

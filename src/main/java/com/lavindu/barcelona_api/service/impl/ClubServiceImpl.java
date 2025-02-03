@@ -59,6 +59,23 @@ public class ClubServiceImpl implements ClubService {
         return club;
     }
 
+    @Override
+    public Club updateById(Long clubId, CreateClubDTO clubDTO) throws ClubNotFoundException {
+
+        Club club = clubRepository.findById(clubId).orElseThrow(
+                () -> new ClubNotFoundException("Club ID " + clubId + " Not Found"));
+
+        club.setName(clubDTO.getName());
+        club.setMotto(clubDTO.getMotto());
+        club.setPresident(clubDTO.getPresident());
+        club.setManager(clubDTO.getManager());
+        club.setFoundedYear(clubDTO.getFoundedYear());
+
+        clubRepository.save(club);
+
+        return club;
+    }
+
 
 }
 

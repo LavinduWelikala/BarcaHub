@@ -94,4 +94,10 @@ public class ClubController {
 
         return response;
     }
+
+    @DeleteMapping("/clubs/{club-id}")
+    public void deleteById(@PathVariable("club-id") Long clubId){
+
+        clubService.deleteById(clubId);
+    }
 }

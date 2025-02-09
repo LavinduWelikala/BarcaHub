@@ -17,4 +17,6 @@ public interface ClubService {
 
     Club updateById(Long clubId, CreateClubDTO clubDTO) throws ClubNotFoundException;
 
+    void deleteById(Long clubId);
+
 }

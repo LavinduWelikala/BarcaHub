@@ -76,6 +76,12 @@ public class ClubServiceImpl implements ClubService {
         return club;
     }
 
+    @Override
+    public void deleteById(Long clubId) {
+
+        clubRepository.deleteById(clubId);
+    }
+
 
 }
 

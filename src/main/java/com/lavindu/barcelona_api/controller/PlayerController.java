@@ -20,13 +20,9 @@ public class PlayerController {
     private PlayerService playerService;
 
     @PostMapping("/clubs/{club-id}/players")
-    public PlayerResponse createClub(@PathVariable ("club-id") Long clubId,
-            @RequestBody CreatePlayerDTO playerDto) throws AlreadyExistException {
-
+    public PlayerResponse createClub(@PathVariable("club-id") Long clubId, @RequestBody CreatePlayerDTO playerDto) throws AlreadyExistException, PlayerNotFoundException {
         Player player = playerService.create(clubId, playerDto);
-
         PlayerResponse response = new PlayerResponse();
-
         response.setId(player.getId());
         response.setName(player.getName());
         response.setAge(player.getAge());
@@ -34,9 +30,10 @@ public class PlayerController {
         response.setPosition(player.getPosition());
         response.setJerseyNumber(player.getJerseyNumber());
         response.setClubId(player.getClub().getId());
-
         return response;
     }
+
+
 
     @GetMapping("/players")
     public List<PlayerResponse> getAllPlayers() {

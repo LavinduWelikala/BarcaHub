@@ -24,31 +24,26 @@ public class PlayerServiceImpl implements PlayerService {
     private ClubRepository clubRepository;
 
     @Override
-    public Player create(Long clubId, CreatePlayerDTO playerDTO) throws AlreadyExistException {
-
-        Optional<Player> playerOptional = playerRepository.findByName(playerDTO.getName());
-
-        if (playerOptional.isPresent()) {
-            throw new AlreadyExistException("Player already exists");
-        } else {
-
-            Player player = new Player();
-
-            Club club = new Club();
-
-            club.setId(clubId);
-
-            player.setName(playerDTO.getName());
-            player.setAge(playerDTO.getAge());
-            player.setPosition(playerDTO.getPosition());
-            player.setNationality(playerDTO.getNationality());
-            player.setJerseyNumber(playerDTO.getJerseyNumber());
-
-            player.setClub(club);
-
-            return playerRepository.save(player);
-
+    public Player create(Long clubId, CreatePlayerDTO playerDTO) throws PlayerNotFoundException, AlreadyExistException {
+        Optional<Club> clubOptional = clubRepository.findById(clubId);
+        if (clubOptional.isEmpty()) {
+            throw new PlayerNotFoundException("Club not found with ID: " + clubId);
         }
+
+        Optional<Player> playerOptional = playerRepository.findByNameAndClubId(playerDTO.getName(), clubId);
+        if (playerOptional.isPresent()) {
+            throw new AlreadyExistException("Player already exists in this club.");
+        }
+
+        Player player = new Player();
+        player.setName(playerDTO.getName());
+        player.setAge(playerDTO.getAge());
+        player.setPosition(playerDTO.getPosition());
+        player.setNationality(playerDTO.getNationality());
+        player.setJerseyNumber(playerDTO.getJerseyNumber());
+        player.setClub(clubOptional.get());
+
+        return playerRepository.save(player);
     }
 
     @Override

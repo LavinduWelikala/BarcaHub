@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class ClubController {
@@ -26,7 +27,7 @@ public class ClubController {
 
         ClubResponse response = new ClubResponse();
 
-        response.setClubId(club.getId());
+        response.setId(club.getId());
         response.setName(club.getName());
         response.setMotto(club.getMotto());
         response.setPresident(club.getPresident());
@@ -37,27 +38,14 @@ public class ClubController {
     }
 
     @GetMapping("/clubs")
-    public List<ClubResponse> getAllClubs(Long clubId) {
-
+    public List<ClubResponse> getAllClubs() {
         List<Club> clubs = clubService.getAllClubs();
-
-        List<ClubResponse> clubResponses = new ArrayList<>();
-
-        for (Club club : clubs) {
-
+        return clubs.stream().map(club -> {
             ClubResponse response = new ClubResponse();
-            response.setClubId(club.getId());
-
+            response.setId(club.getId());
             response.setName(club.getName());
-            response.setMotto(club.getMotto());
-            response.setPresident(club.getPresident());
-            response.setManager(club.getManager());
-            response.setFoundedYear(club.getFoundedYear());
-
-
-            clubResponses.add(response);
-        }
-        return clubResponses;
+            return response;
+        }).collect(Collectors.toList());
     }
 
     @GetMapping("/clubs/{club-id}")
@@ -67,7 +55,7 @@ public class ClubController {
 
         ClubResponse response = new ClubResponse();
 
-        response.setClubId(club.getId());
+        response.setId(club.getId());
         response.setName(club.getName());
         response.setMotto(club.getMotto());
         response.setPresident(club.getPresident());
@@ -85,7 +73,7 @@ public class ClubController {
 
         ClubResponse response = new ClubResponse();
 
-        response.setClubId(updatedClub.getId());
+        response.setId(updatedClub.getId());
         response.setName(updatedClub.getName());
         response.setMotto(updatedClub.getMotto());
         response.setPresident(updatedClub.getPresident());

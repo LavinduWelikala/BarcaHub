@@ -12,10 +12,10 @@ public class Player {
     private Long id;
 
     private String name;
-    private Integer age;
+    private int age;
     private String position;
     private String nationality;
-    private Integer jerseyNumber;
+    private int jerseyNumber;
 
 
     @ManyToOne

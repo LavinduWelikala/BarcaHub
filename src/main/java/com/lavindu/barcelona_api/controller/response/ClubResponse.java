@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ClubResponse {
 
-    private Long clubId;
+    private Long id;
     private String name;
     private String motto;
     private String president;

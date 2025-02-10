@@ -10,7 +10,6 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CreatePlayerDTO {
 
         @NotBlank(message = "Name cannot be empty")

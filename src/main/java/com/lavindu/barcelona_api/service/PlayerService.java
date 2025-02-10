@@ -16,6 +16,8 @@ public interface PlayerService {
 
      List<Player> findAllByClubId(Long clubId) throws NotFoundException;
 
+     Player findById(Long playerId) throws PlayerNotFoundException;
+
      Player updateById(Long playerId, CreatePlayerDTO playerDTO) throws PlayerNotFoundException;
 
      void deleteById(Long playerId);

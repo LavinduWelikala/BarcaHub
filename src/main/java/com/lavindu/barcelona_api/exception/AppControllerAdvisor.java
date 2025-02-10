@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class AppControllerAdvisor {
 
-    @ExceptionHandler(AlreadyExistException.class)
-    public ErrorResponse handleAlreadyExistException(AlreadyExistException ex) {
+    @ExceptionHandler(NotFoundException.class)
+    public ErrorResponse handleNotFoundException(NotFoundException ex) {
 
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessage(ex.getMessage());

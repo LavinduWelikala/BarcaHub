@@ -30,9 +30,7 @@ public class PlayerServiceImpl implements PlayerService {
 
         if (playerOptional.isPresent()) {
             throw new AlreadyExistException("Player already exists");
-        }
-
-        else{
+        } else {
 
             Player player = new Player();
 
@@ -47,7 +45,7 @@ public class PlayerServiceImpl implements PlayerService {
             player.setJerseyNumber(playerDTO.getJerseyNumber());
 
             player.setClub(club);
-            
+
             return playerRepository.save(player);
 
         }
@@ -68,6 +66,14 @@ public class PlayerServiceImpl implements PlayerService {
         List<Player> players = playerRepository.findByClub(club);
 
         return players;
+    }
+
+    @Override
+    public Player findById(Long playerId) throws PlayerNotFoundException {
+        Player player = playerRepository.findById(playerId).orElseThrow(
+                () -> new PlayerNotFoundException("Player Id " + playerId + " not found"));
+
+        return player;
     }
 
     @Override

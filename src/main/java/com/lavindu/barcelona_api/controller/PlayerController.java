@@ -56,9 +56,7 @@ public class PlayerController {
             response.setNationality(player.getNationality());
             response.setPosition(player.getPosition());
             response.setJerseyNumber(player.getJerseyNumber());
-            
             response.setClubId(player.getClub().getId());
-
 
             playerResponses.add(response);
         }
@@ -87,6 +85,24 @@ public class PlayerController {
             playerResponseList.add(response);
         }
         return playerResponseList;
+    }
+
+    @GetMapping("/players/{player-id}")
+    public PlayerResponse getById(@PathVariable ("player-id") Long playerId) throws PlayerNotFoundException {
+
+        Player getPlayer = playerService.findById(playerId);
+
+        PlayerResponse response = new PlayerResponse();
+
+        response.setId(getPlayer.getId());
+        response.setName(getPlayer.getName());
+        response.setAge(getPlayer.getAge());
+        response.setNationality(getPlayer.getNationality());
+        response.setPosition(getPlayer.getPosition());
+        response.setJerseyNumber(getPlayer.getJerseyNumber());
+        response.setClubId(getPlayer.getClub().getId());
+
+        return response;
     }
 
     @PutMapping("/players/{player-id}")

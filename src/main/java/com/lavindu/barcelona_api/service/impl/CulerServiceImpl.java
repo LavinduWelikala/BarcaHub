@@ -17,15 +17,12 @@ public class CulerServiceImpl implements CulerService {
     private CulerRepository culerRepository;
 
     @Override
-    public void createCuler(CreateCulerDTO culerDTO) throws AlreadyExistException {
+    public Culer create(CreateCulerDTO culerDTO) throws AlreadyExistException {
 
         Optional<Culer> culerOptional = culerRepository.findByName(culerDTO.getName());
 
         if (culerOptional.isPresent()) {
-            throw new AlreadyExistException("Culer already exists");
-        }
-
-        else{
+            throw new AlreadyExistException("Culer already exists");}
 
             Culer culer = new Culer();
 
@@ -36,8 +33,6 @@ public class CulerServiceImpl implements CulerService {
             culer.setCountry(culerDTO.getCountry());
             culer.setPassword(culerDTO.getPassword());
 
-            culerRepository.save(culer);
-        }
-
+            return culerRepository.save(culer);
     }
 }

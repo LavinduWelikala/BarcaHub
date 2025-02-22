@@ -1,6 +1,6 @@
 package com.lavindu.barcelona_api.controller;
 
-import com.lavindu.barcelona_api.controller.request.CreatePlayerDTO;
+import com.lavindu.barcelona_api.controller.request.PlayerRequestDTO;
 import com.lavindu.barcelona_api.controller.response.PlayerResponse;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.NotFoundException;
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @RestController
+@AllArgsConstructor
 public class PlayerController {
 
     private PlayerService playerService;
 
     @PostMapping("/clubs/{club-id}/players")
-    public PlayerResponse createClub(@PathVariable("club-id") Long clubId, @RequestBody CreatePlayerDTO playerDto) throws AlreadyExistException, PlayerNotFoundException {
+    public PlayerResponse create(@PathVariable("club-id") Long clubId, @RequestBody PlayerRequestDTO playerDto) throws AlreadyExistException, PlayerNotFoundException {
         Player player = playerService.create(clubId, playerDto);
         PlayerResponse response = new PlayerResponse();
         response.setId(player.getId());
@@ -36,7 +36,7 @@ public class PlayerController {
 
 
     @GetMapping("/players")
-    public List<PlayerResponse> getAllPlayers() {
+    public List<PlayerResponse> getAll() {
 
         List<Player> playerList = playerService.findAll();
 
@@ -62,7 +62,7 @@ public class PlayerController {
 
 
     @GetMapping("/clubs/{club-id}/players")
-    public List<PlayerResponse> getPlayersById(@PathVariable("club-id") Long clubId ) throws NotFoundException {
+    public List<PlayerResponse> getAllByClubId(@PathVariable("club-id") Long clubId ) throws NotFoundException {
 
         List<Player> playerList = playerService.findAllByClubId(clubId);
 
@@ -103,7 +103,7 @@ public class PlayerController {
     }
 
     @PutMapping("/players/{player-id}")
-    public PlayerResponse updatePlayer(@RequestBody CreatePlayerDTO playerDTO,
+    public PlayerResponse updateById(@RequestBody PlayerRequestDTO playerDTO,
                              @PathVariable ("player-id") Long playerId) throws PlayerNotFoundException {
 
         Player player = playerService.updateById(playerId,playerDTO);

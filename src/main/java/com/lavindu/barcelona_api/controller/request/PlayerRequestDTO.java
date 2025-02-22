@@ -10,7 +10,8 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class CreatePlayerDTO {
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public class PlayerRequestDTO {
 
         @NotBlank(message = "Name cannot be empty")
         @Pattern(regexp = "^[A-Za-z ]+$", message = "Name must contain only letters and spaces")

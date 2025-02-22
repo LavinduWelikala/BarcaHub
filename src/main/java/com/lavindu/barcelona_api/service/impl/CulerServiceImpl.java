@@ -1,23 +1,23 @@
 package com.lavindu.barcelona_api.service.impl;
 
-import com.lavindu.barcelona_api.controller.request.CreateCulerDTO;
+import com.lavindu.barcelona_api.controller.request.CulerRequestDTO;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.model.Culer;
 import com.lavindu.barcelona_api.repository.CulerRepository;
 import com.lavindu.barcelona_api.service.CulerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class CulerServiceImpl implements CulerService {
 
-    @Autowired
     private CulerRepository culerRepository;
 
     @Override
-    public Culer create(CreateCulerDTO culerDTO) throws AlreadyExistException {
+    public Culer create(CulerRequestDTO culerDTO) throws AlreadyExistException {
 
         Optional<Culer> culerOptional = culerRepository.findByName(culerDTO.getName());
 

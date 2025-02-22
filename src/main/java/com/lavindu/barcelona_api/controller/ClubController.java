@@ -1,28 +1,28 @@
 package com.lavindu.barcelona_api.controller;
 
 
-import com.lavindu.barcelona_api.controller.request.CreateClubDTO;
+import com.lavindu.barcelona_api.controller.request.ClubRequestDTO;
 import com.lavindu.barcelona_api.controller.response.ClubResponse;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.ClubNotFoundException;
 import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.service.ClubService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@AllArgsConstructor
 public class ClubController {
 
-    @Autowired
     private ClubService clubService;
 
     @PostMapping("/clubs")
-    public ClubResponse create(@Valid @RequestBody CreateClubDTO dto) throws AlreadyExistException {
+    public ClubResponse create(@Valid @RequestBody ClubRequestDTO dto) throws AlreadyExistException {
         Club club = clubService.create(dto);
 
         ClubResponse response = new ClubResponse();
@@ -39,7 +39,9 @@ public class ClubController {
 
     @GetMapping("/clubs")
     public List<ClubResponse> getAllClubs() {
-        List<Club> clubs = clubService.getAllClubs();
+
+        List<Club> clubs = clubService.findAll();
+
         return clubs.stream().map(club -> {
             ClubResponse response = new ClubResponse();
             response.setId(club.getId());
@@ -49,7 +51,7 @@ public class ClubController {
     }
 
     @GetMapping("/clubs/{club-id}")
-    public ClubResponse findById(@PathVariable("club-id") Long clubId) throws ClubNotFoundException {
+    public ClubResponse getById(@PathVariable("club-id") Long clubId) throws ClubNotFoundException {
 
         Club club = clubService.findById(clubId);
 
@@ -67,7 +69,7 @@ public class ClubController {
 
     @PutMapping("/clubs/{club-id}")
     public ClubResponse updateById(@PathVariable("club-id") Long clubId,
-                                   @RequestBody CreateClubDTO clubDTO) throws ClubNotFoundException {
+                                   @RequestBody ClubRequestDTO clubDTO) throws ClubNotFoundException {
 
         Club updatedClub = clubService.updateById(clubId,clubDTO);
 

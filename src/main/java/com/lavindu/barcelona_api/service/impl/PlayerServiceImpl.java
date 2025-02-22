@@ -1,6 +1,6 @@
 package com.lavindu.barcelona_api.service.impl;
 
-import com.lavindu.barcelona_api.controller.request.CreatePlayerDTO;
+import com.lavindu.barcelona_api.controller.request.PlayerRequestDTO;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.NotFoundException;
 import com.lavindu.barcelona_api.exception.PlayerNotFoundException;
@@ -16,15 +16,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 @Service
+@AllArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
     private PlayerRepository playerRepository;
     private ClubRepository clubRepository;
 
     @Override
-    public Player create(Long clubId, CreatePlayerDTO playerDTO) throws PlayerNotFoundException, AlreadyExistException {
+    public Player create(Long clubId, PlayerRequestDTO playerDTO) throws PlayerNotFoundException, AlreadyExistException {
         Optional<Club> clubOptional = clubRepository.findById(clubId);
         if (clubOptional.isEmpty()) {
             throw new PlayerNotFoundException("Club not found with ID: " + clubId);
@@ -72,7 +72,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player updateById(Long playerId, CreatePlayerDTO playerDTO) throws PlayerNotFoundException {
+    public Player updateById(Long playerId, PlayerRequestDTO playerDTO) throws PlayerNotFoundException {
 
         Player existingPlayer = playerRepository.findById(playerId).orElseThrow(
                 () -> new PlayerNotFoundException("Player ID " + playerId + " Not Found"));

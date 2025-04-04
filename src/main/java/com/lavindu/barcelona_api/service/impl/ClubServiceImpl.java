@@ -28,6 +28,7 @@ public class ClubServiceImpl implements ClubService {
         }
 
         else {
+            
             Club club = new Club();
 
             club.setName(clubDTO.getName());

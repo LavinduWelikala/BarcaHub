@@ -9,7 +9,6 @@ import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.service.ClubService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

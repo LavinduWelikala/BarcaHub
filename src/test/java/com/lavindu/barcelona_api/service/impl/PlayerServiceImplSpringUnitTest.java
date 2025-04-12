@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class PlayerServiceImplSpringUnitTest {
+class PlayerServiceImplSpringUnitTest {
 
     @InjectMocks
     private PlayerServiceImpl playerService;

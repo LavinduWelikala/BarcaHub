@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lavindu.barcelona_api.controller.request.ClubRequestDTO;
 import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.repository.ClubRepository;
+import com.lavindu.barcelona_api.repository.PlayerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,9 +34,13 @@ class ClubControllerSpringIntegrationTest {
     @Autowired
     private ClubRepository clubRepository;
 
+    @Autowired
+    private PlayerRepository playerRepository;  // Used to delete players if needed
+
     @BeforeEach
     void setUp() {
-        clubRepository.deleteAll();
+        playerRepository.deleteAll(); // Ensure there are no players left
+        clubRepository.deleteAll(); // Delete all clubs after players
     }
 
     @Test

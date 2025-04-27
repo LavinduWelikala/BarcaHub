@@ -57,6 +57,7 @@ public class ClubController {
         return clubResponseWrapper;
     }
 
+
     @GetMapping("/clubs/{club-id}")
     public ClubResponse getById(@PathVariable("club-id") Long clubId) throws ClubNotFoundException {
 

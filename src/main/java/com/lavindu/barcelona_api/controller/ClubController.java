@@ -49,6 +49,7 @@ public class ClubController {
         }).collect(Collectors.toList());
     }
 
+
     @GetMapping("/clubs/{club-id}")
     public ClubResponse getById(@PathVariable("club-id") Long clubId) throws ClubNotFoundException {
 

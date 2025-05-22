@@ -24,14 +24,13 @@ public class PlayerController {
 
     @PostMapping("/clubs/{club-id}/players")
     public PlayerResponse create(@PathVariable("club-id") Long clubId,
-                         @ModelAttribute PlayerRequestDTO playerDto
-//                         @RequestBody PlayerRequestDTO playerDto
-                         ) throws AlreadyExistException, PlayerNotFoundException, IOException {
+                         @ModelAttribute PlayerRequestDTO playerDto) throws AlreadyExistException, PlayerNotFoundException, IOException {
 
-//        return playerService.create(clubId, playerDto);
 
-                Player player = playerService.create(clubId, playerDto);
+        Player player = playerService.create(clubId, playerDto);
+
         PlayerResponse response = new PlayerResponse();
+
         response.setId(player.getId());
         response.setName(player.getName());
         response.setAge(player.getAge());
@@ -40,6 +39,7 @@ public class PlayerController {
         response.setJerseyNumber(player.getJerseyNumber());
         response.setClubId(player.getClub().getId());
         response.setImageFiles(player.getImageUrl());
+
         return response;
     }
 
@@ -109,7 +109,8 @@ public class PlayerController {
     }
 
     @GetMapping("/players/{player-id}")
-    public PlayerResponse getById(@PathVariable ("player-id") Long playerId) throws PlayerNotFoundException {
+    public PlayerResponse getById(@PathVariable ("player-id") Long playerId,
+                                  @ModelAttribute PlayerRequestDTO playerDTO) throws PlayerNotFoundException {
 
         Player getPlayer = playerService.findById(playerId);
 
@@ -127,26 +128,26 @@ public class PlayerController {
     }
 
     @PutMapping("/players/{player-id}")
-    public Player updateById(
-//            @RequestBody PlayerRequestDTO playerDTO,
+    public PlayerResponse updateById(
                              @PathVariable ("player-id") Long playerId,
                              @ModelAttribute PlayerRequestDTO playerDTO) throws PlayerNotFoundException, IOException {
 
-        return playerService.updateById(playerId, playerDTO);
-//        Player player = playerService.updateById(playerId,playerDTO);
-//
-//        PlayerResponse response = new PlayerResponse();
-//
-//        response.setId(player.getId());
-//        response.setName(player.getName());
-//        response.setAge(player.getAge());
-//        response.setNationality(player.getNationality());
-//        response.setPosition(player.getPosition());
-//        response.setJerseyNumber(player.getJerseyNumber());
-//        response.setClubId(player.getClub().getId());
-//
-//        return response;
+        Player player = playerService.updateById(playerId,playerDTO);
+
+        PlayerResponse response = new PlayerResponse();
+
+        response.setId(player.getId());
+        response.setName(player.getName());
+        response.setAge(player.getAge());
+        response.setNationality(player.getNationality());
+        response.setPosition(player.getPosition());
+        response.setJerseyNumber(player.getJerseyNumber());
+        response.setClubId(player.getClub().getId());
+        response.setImageFiles(player.getImageUrl());
+
+        return response;
     }
+
     @DeleteMapping("/players/{player-id}")
     public void deleteById(@PathVariable("player-id") Long playerId){
 

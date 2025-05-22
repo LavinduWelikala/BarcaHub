@@ -73,22 +73,35 @@ public class ClubServiceImpl implements ClubService {
         return club;
     }
 
-//    @Override
-//    public Club updateById(Long clubId, ClubRequestDTO clubDTO) throws ClubNotFoundException {
-//
-//        Club club = clubRepository.findById(clubId).orElseThrow(
-//                () -> new ClubNotFoundException("Club ID " + clubId + " Not Found"));
-//
-//        club.setName(clubDTO.getName());
-//        club.setMotto(clubDTO.getMotto());
-//        club.setPresident(clubDTO.getPresident());
-//        club.setManager(clubDTO.getManager());
-//        club.setFoundedYear(clubDTO.getFoundedYear());
-//
-//        clubRepository.save(club);
-//
-//        return club;
-//    }
+    @Override
+    public Club updateById(Long clubId, ClubRequestDTO clubDTO) throws ClubNotFoundException, IOException {
+
+        Club club = clubRepository.findById(clubId).orElseThrow(
+                () -> new ClubNotFoundException("Club ID " + clubId + " Not Found"));
+
+        club.setName(clubDTO.getName());
+        club.setMotto(clubDTO.getMotto());
+        club.setPresident(clubDTO.getPresident());
+        club.setManager(clubDTO.getManager());
+        club.setFoundedYear(clubDTO.getFoundedYear());
+
+        List<String> imageUrls = new ArrayList<>();
+        if (clubDTO.getImageFiles() != null) {
+            for (MultipartFile file : clubDTO.getImageFiles()) {
+                String imageUrl = cloudinary.uploader()
+                        .upload(file.getBytes(),
+                                Map.of("public_id", UUID.randomUUID().toString()))
+                        .get("url")
+                        .toString();
+                imageUrls.add(imageUrl);
+            }
+        }
+        club.setImageUrl(imageUrls);
+
+        clubRepository.save(club);
+
+        return club;
+    }
 
     @Override
     public void deleteById(Long clubId) {

@@ -16,7 +16,7 @@ public interface ClubService {
 
     Club findById(Long clubId) throws ClubNotFoundException;
 
-//    Club updateById(Long clubId, ClubRequestDTO clubDTO) throws ClubNotFoundException;
+    Club updateById(Long clubId, ClubRequestDTO clubDTO) throws ClubNotFoundException, IOException;
 
     void deleteById(Long clubId);
 

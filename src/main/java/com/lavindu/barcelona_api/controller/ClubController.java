@@ -26,7 +26,6 @@ public class ClubController {
     public ClubResponse create(
             @ModelAttribute ClubRequestDTO clubDTO) throws AlreadyExistException, IOException {
 
-//        return clubService.create(clubDTO);
         Club club = clubService.create(clubDTO);
 
         ClubResponse response = new ClubResponse();
@@ -87,23 +86,24 @@ public class ClubController {
         return response;
     }
 
-//    @PutMapping("/clubs/{club-id}")
-//    public ClubResponse updateById(@PathVariable("club-id") Long clubId,
-//                                   @RequestBody ClubRequestDTO clubDTO) throws ClubNotFoundException {
-//
-//        Club updatedClub = clubService.updateById(clubId,clubDTO);
-//
-//        ClubResponse response = new ClubResponse();
-//
-//        response.setId(updatedClub.getId());
-//        response.setName(updatedClub.getName());
-//        response.setMotto(updatedClub.getMotto());
-//        response.setPresident(updatedClub.getPresident());
-//        response.setManager(updatedClub.getManager());
-//        response.setFoundedYear(updatedClub.getFoundedYear());
-//
-//        return response;
-//    }
+    @PutMapping("/clubs/{club-id}")
+    public ClubResponse updateById(@PathVariable("club-id") Long clubId,
+                                   @ModelAttribute ClubRequestDTO clubDTO) throws ClubNotFoundException, IOException {
+
+        Club updatedClub = clubService.updateById(clubId,clubDTO);
+
+        ClubResponse response = new ClubResponse();
+
+        response.setId(updatedClub.getId());
+        response.setName(updatedClub.getName());
+        response.setMotto(updatedClub.getMotto());
+        response.setPresident(updatedClub.getPresident());
+        response.setManager(updatedClub.getManager());
+        response.setFoundedYear(updatedClub.getFoundedYear());
+        response.setImageFiles(updatedClub.getImageUrl());
+
+        return response;
+    }
 
     @DeleteMapping("/clubs/{club-id}")
     public void deleteById(@PathVariable("club-id") Long clubId){

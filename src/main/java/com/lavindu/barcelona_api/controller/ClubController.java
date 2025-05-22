@@ -3,6 +3,7 @@ package com.lavindu.barcelona_api.controller;
 
 import com.lavindu.barcelona_api.controller.request.ClubRequestDTO;
 import com.lavindu.barcelona_api.controller.response.ClubResponse;
+import com.lavindu.barcelona_api.controller.response.wrapper.ClubResponseWrapper;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.ClubNotFoundException;
 import com.lavindu.barcelona_api.model.Club;
@@ -41,18 +42,26 @@ public class ClubController {
         return response;
     }
 
-    @GetMapping("/clubs")
-    public List<ClubResponse> getAllClubs() {
+    @GetMapping(value = "/clubs")
+    public ClubResponseWrapper getAllClubs() {
 
-        List<Club> clubs = clubService.findAll();
+        List<ClubResponse> clubResponses = clubService.findAll()
+                .stream()
+                .map(club -> new ClubResponse(
+                        club.getId(),
+                        club.getName(),
+                        club.getMotto(),
+                        club.getPresident(),
+                        club.getManager(),
+                        club.getFoundedYear()
+                ))
+                .collect(Collectors.toList());
 
-        return clubs.stream().map(club -> {
-            ClubResponse response = new ClubResponse();
-            response.setId(club.getId());
-            response.setName(club.getName());
-            return response;
-        }).collect(Collectors.toList());
+        ClubResponseWrapper clubResponseWrapper = new ClubResponseWrapper(clubResponses);
+
+        return clubResponseWrapper;
     }
+
 
     @GetMapping("/clubs/{club-id}")
     public ClubResponse getById(@PathVariable("club-id") Long clubId) throws ClubNotFoundException {

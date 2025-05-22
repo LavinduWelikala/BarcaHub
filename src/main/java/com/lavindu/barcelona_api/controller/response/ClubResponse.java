@@ -1,11 +1,15 @@
 package com.lavindu.barcelona_api.controller.response;
 
+
 import lombok.Data;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClubResponse {
 
     private Long id;

@@ -3,7 +3,6 @@ package com.lavindu.barcelona_api.controller;
 
 import com.lavindu.barcelona_api.controller.request.ClubRequestDTO;
 import com.lavindu.barcelona_api.controller.response.ClubResponse;
-import com.lavindu.barcelona_api.controller.response.wrapper.ClubResponseWrapper;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.ClubNotFoundException;
 import com.lavindu.barcelona_api.model.Club;
@@ -13,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,23 +43,30 @@ public class ClubController {
     }
 
     @GetMapping(value = "/clubs")
-    public ClubResponseWrapper getAllClubs() {
+    public List<ClubResponse> getAllClubs() {
 
-        List<ClubResponse> clubResponses = clubService.findAll()
-                .stream()
-                .map(club -> new ClubResponse(
-                        club.getId(),
-                        club.getName(),
-                        club.getMotto(),
-                        club.getPresident(),
-                        club.getManager(),
-                        club.getFoundedYear()
-                ))
-                .collect(Collectors.toList());
+        List<Club> clubs = clubService.findAll();
 
-        ClubResponseWrapper clubResponseWrapper = new ClubResponseWrapper(clubResponses);
+        List<ClubResponse> clubResponseList = new ArrayList<>();
 
-        return clubResponseWrapper;
+        for (Club club : clubs) {
+            ClubResponse response = new ClubResponse();
+
+            response.setId(club.getId());
+            response.setName(club.getName());
+            response.setMotto(club.getMotto());
+            response.setPresident(club.getPresident());
+            response.setManager(club.getManager());
+            response.setFoundedYear(club.getFoundedYear());
+            response.setImageFiles(club.getImageUrl());
+
+            clubResponseList.add(response);
+        }
+        return clubResponseList;
+
+
+
+
     }
 
 

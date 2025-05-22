@@ -8,9 +8,12 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Data
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+//@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class PlayerRequestDTO {
 
         @NotBlank(message = "Name cannot be empty")
@@ -32,5 +35,7 @@ public class PlayerRequestDTO {
         @Min(value = 1, message = "Jersey number must be at least 1")
         @Max(value = 99, message = "Jersey number must not exceed 99")
         private int jerseyNumber;
+
+        private List<MultipartFile> imageFiles;
 
 }

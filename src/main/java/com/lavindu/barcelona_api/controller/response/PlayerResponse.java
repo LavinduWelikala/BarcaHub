@@ -1,6 +1,9 @@
 package com.lavindu.barcelona_api.controller.response;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Data
 public class PlayerResponse {
@@ -11,6 +14,9 @@ public class PlayerResponse {
     private String position;
     private String nationality;
     private int jerseyNumber;
+
+    private List<String> imageFiles;
+
 
     private Long clubId;
 }

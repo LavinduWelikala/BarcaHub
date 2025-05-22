@@ -3,6 +3,8 @@ package com.lavindu.barcelona_api.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 public class Player {
@@ -16,6 +18,9 @@ public class Player {
     private String position;
     private String nationality;
     private int jerseyNumber;
+
+    @ElementCollection
+    private List<String> imageUrl;
 
 
     @ManyToOne

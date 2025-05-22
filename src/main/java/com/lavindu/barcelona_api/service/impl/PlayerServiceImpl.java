@@ -1,5 +1,6 @@
 package com.lavindu.barcelona_api.service.impl;
 
+import com.cloudinary.Cloudinary;
 import com.lavindu.barcelona_api.controller.request.PlayerRequestDTO;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.NotFoundException;
@@ -11,20 +12,22 @@ import com.lavindu.barcelona_api.repository.PlayerRepository;
 import com.lavindu.barcelona_api.service.PlayerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
+    private Cloudinary cloudinary;
     private PlayerRepository playerRepository;
     private ClubRepository clubRepository;
 
     @Override
-    public Player create(Long clubId, PlayerRequestDTO playerDTO) throws PlayerNotFoundException, AlreadyExistException {
+    public Player create(Long clubId, PlayerRequestDTO playerDTO) throws PlayerNotFoundException, AlreadyExistException, IOException {
         Optional<Club> clubOptional = clubRepository.findById(clubId);
         if (clubOptional.isEmpty()) {
             throw new PlayerNotFoundException("Club not found with ID: " + clubId);
@@ -42,6 +45,19 @@ public class PlayerServiceImpl implements PlayerService {
         player.setNationality(playerDTO.getNationality());
         player.setJerseyNumber(playerDTO.getJerseyNumber());
         player.setClub(clubOptional.get());
+
+        List<String> imageUrls = new ArrayList<>();
+        if (playerDTO.getImageFiles() != null) {
+            for (MultipartFile file : playerDTO.getImageFiles()) {
+                String imageUrl = cloudinary.uploader()
+                        .upload(file.getBytes(),
+                                Map.of("public_id", UUID.randomUUID().toString()))
+                        .get("url")
+                        .toString();
+                imageUrls.add(imageUrl);
+            }
+        }
+        player.setImageUrl(imageUrls);
 
         return playerRepository.save(player);
     }
@@ -72,7 +88,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player updateById(Long playerId, PlayerRequestDTO playerDTO) throws PlayerNotFoundException {
+    public Player updateById(Long playerId, PlayerRequestDTO playerDTO) throws PlayerNotFoundException, IOException {
 
         Player existingPlayer = playerRepository.findById(playerId).orElseThrow(
                 () -> new PlayerNotFoundException("Player ID " + playerId + " Not Found"));
@@ -82,6 +98,19 @@ public class PlayerServiceImpl implements PlayerService {
         existingPlayer.setPosition(playerDTO.getPosition());
         existingPlayer.setNationality(playerDTO.getNationality());
         existingPlayer.setJerseyNumber(playerDTO.getJerseyNumber());
+
+        List<String> imageUrls = new ArrayList<>();
+        if (playerDTO.getImageFiles() != null) {
+            for (MultipartFile file : playerDTO.getImageFiles()) {
+                String imageUrl = cloudinary.uploader()
+                        .upload(file.getBytes(),
+                                Map.of("public_id", UUID.randomUUID().toString()))
+                        .get("url")
+                        .toString();
+                imageUrls.add(imageUrl);
+            }
+        }
+        existingPlayer.setImageUrl(imageUrls);
 
         playerRepository.save(existingPlayer);
 

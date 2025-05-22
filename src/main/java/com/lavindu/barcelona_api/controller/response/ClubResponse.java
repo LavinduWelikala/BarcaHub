@@ -1,8 +1,11 @@
 package com.lavindu.barcelona_api.controller.response;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,4 +18,5 @@ public class ClubResponse {
     private String president;
     private String manager;
     private int foundedYear;
+    private List<String> imageFiles;
 }

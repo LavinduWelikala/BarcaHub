@@ -22,6 +22,9 @@ public class Club {
         private String manager;
         private int foundedYear;
 
+        @ElementCollection
+        private List<String> imageUrl;
+
         @OneToMany(mappedBy = "club")
         private List<Player> playerList;
 

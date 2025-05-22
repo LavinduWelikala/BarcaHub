@@ -6,11 +6,12 @@ import com.lavindu.barcelona_api.exception.NotFoundException;
 import com.lavindu.barcelona_api.exception.PlayerNotFoundException;
 import com.lavindu.barcelona_api.model.Player;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface PlayerService {
 
-     Player create(Long clubId, PlayerRequestDTO playerDTO) throws PlayerNotFoundException, AlreadyExistException;
+     Player create(Long clubId, PlayerRequestDTO playerDTO) throws PlayerNotFoundException, AlreadyExistException, IOException;
 
      List<Player> findAll();
 
@@ -18,7 +19,7 @@ public interface PlayerService {
 
      Player findById(Long playerId) throws PlayerNotFoundException;
 
-     Player updateById(Long playerId, PlayerRequestDTO playerDTO) throws PlayerNotFoundException;
+     Player updateById(Long playerId, PlayerRequestDTO playerDTO) throws PlayerNotFoundException, IOException;
 
      void deleteById(Long playerId);
 

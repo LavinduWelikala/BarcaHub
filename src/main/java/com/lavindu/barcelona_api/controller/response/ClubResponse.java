@@ -1,7 +1,8 @@
 package com.lavindu.barcelona_api.controller.response;
 
+
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.List;
 

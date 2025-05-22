@@ -1,7 +1,9 @@
 package com.lavindu.barcelona_api.controller;
 
 import com.lavindu.barcelona_api.controller.request.PlayerRequestDTO;
+import com.lavindu.barcelona_api.controller.response.ClubResponse;
 import com.lavindu.barcelona_api.controller.response.PlayerResponse;
+import com.lavindu.barcelona_api.controller.response.wrapper.ClubResponseWrapper;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.NotFoundException;
 import com.lavindu.barcelona_api.exception.PlayerNotFoundException;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -41,7 +44,21 @@ public class PlayerController {
         return response;
     }
 
-
+//    List<ClubResponse> clubResponses = clubService.findAll()
+//            .stream()
+//            .map(club -> new ClubResponse(
+//                    club.getId(),
+//                    club.getName(),
+//                    club.getMotto(),
+//                    club.getPresident(),
+//                    club.getManager(),
+//                    club.getFoundedYear()
+//            ))
+//            .collect(Collectors.toList());
+//
+//    ClubResponseWrapper clubResponseWrapper = new ClubResponseWrapper(clubResponses);
+//
+//        return clubResponseWrapper;
 
     @GetMapping("/players")
     public List<PlayerResponse> getAll() {

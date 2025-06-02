@@ -1,7 +1,6 @@
 package com.lavindu.barcelona_api.controller;
 
 import com.lavindu.barcelona_api.controller.request.PlayerRequestDTO;
-import com.lavindu.barcelona_api.controller.response.ClubResponse;
 import com.lavindu.barcelona_api.controller.response.PlayerResponse;
 import com.lavindu.barcelona_api.exception.AlreadyExistException;
 import com.lavindu.barcelona_api.exception.NotFoundException;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -38,6 +36,7 @@ public class PlayerController {
         response.setPosition(player.getPosition());
         response.setJerseyNumber(player.getJerseyNumber());
         response.setClubId(player.getClub().getId());
+        response.setPlayerStatus(player.getPlayerStatus());
         response.setImageFiles(player.getImageUrl());
 
         return response;
@@ -143,6 +142,7 @@ public class PlayerController {
         response.setPosition(player.getPosition());
         response.setJerseyNumber(player.getJerseyNumber());
         response.setClubId(player.getClub().getId());
+        response.setPlayerStatus(player.getPlayerStatus());
         response.setImageFiles(player.getImageUrl());
 
         return response;

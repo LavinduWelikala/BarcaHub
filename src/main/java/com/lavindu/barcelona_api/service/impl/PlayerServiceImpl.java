@@ -47,8 +47,8 @@ public class PlayerServiceImpl implements PlayerService {
         player.setJerseyNumber(playerDTO.getJerseyNumber());
         player.setClub(clubOptional.get());
 
-        //Player active status set as ACTIVE when creating the player profile
-        player.setPlayerStatus(Status.ACTIVE);
+        //Player active status set as SIGNED when creating the player profile
+        player.setPlayerStatus(Status.SIGNED);
 
         //Adding the player images
         List<String> imageUrls = new ArrayList<>();

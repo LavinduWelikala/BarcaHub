@@ -1,7 +1,9 @@
 package com.lavindu.barcelona_api.controller.response;
 
+import com.lavindu.barcelona_api.model.Status;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,8 +17,9 @@ public class PlayerResponse {
     private String nationality;
     private int jerseyNumber;
 
+    @Enumerated(EnumType.STRING)
+    private Status playerStatus;
+
     private List<String> imageFiles;
-
-
     private Long clubId;
 }

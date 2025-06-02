@@ -1,8 +1,8 @@
 package com.lavindu.barcelona_api.controller.request;
 
-
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.lavindu.barcelona_api.model.Status;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -35,6 +35,9 @@ public class PlayerRequestDTO {
         @Min(value = 1, message = "Jersey number must be at least 1")
         @Max(value = 99, message = "Jersey number must not exceed 99")
         private int jerseyNumber;
+
+        @Enumerated(EnumType.STRING)
+        private Status playerStatus;
 
         private List<MultipartFile> imageFiles;
 

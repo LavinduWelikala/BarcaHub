@@ -7,6 +7,7 @@ import com.lavindu.barcelona_api.exception.NotFoundException;
 import com.lavindu.barcelona_api.exception.PlayerNotFoundException;
 import com.lavindu.barcelona_api.model.Club;
 import com.lavindu.barcelona_api.model.Player;
+import com.lavindu.barcelona_api.model.Status;
 import com.lavindu.barcelona_api.repository.ClubRepository;
 import com.lavindu.barcelona_api.repository.PlayerRepository;
 import com.lavindu.barcelona_api.service.PlayerService;
@@ -46,6 +47,10 @@ public class PlayerServiceImpl implements PlayerService {
         player.setJerseyNumber(playerDTO.getJerseyNumber());
         player.setClub(clubOptional.get());
 
+        //Player active status set as ACTIVE when creating the player profile
+        player.setPlayerStatus(Status.ACTIVE);
+
+        //Adding the player images
         List<String> imageUrls = new ArrayList<>();
         if (playerDTO.getImageFiles() != null) {
             for (MultipartFile file : playerDTO.getImageFiles()) {
@@ -98,6 +103,7 @@ public class PlayerServiceImpl implements PlayerService {
         existingPlayer.setPosition(playerDTO.getPosition());
         existingPlayer.setNationality(playerDTO.getNationality());
         existingPlayer.setJerseyNumber(playerDTO.getJerseyNumber());
+        existingPlayer.setPlayerStatus(playerDTO.getPlayerStatus());
 
         List<String> imageUrls = new ArrayList<>();
         if (playerDTO.getImageFiles() != null) {

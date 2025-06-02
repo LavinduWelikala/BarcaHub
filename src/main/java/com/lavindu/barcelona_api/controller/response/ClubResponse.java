@@ -1,8 +1,6 @@
 package com.lavindu.barcelona_api.controller.response;
 
-
 import lombok.Data;
-
 
 import java.util.List;
 

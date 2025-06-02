@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "players")
 public class Player {
 
     @Id
@@ -18,6 +19,10 @@ public class Player {
     private String position;
     private String nationality;
     private int jerseyNumber;
+
+    @Enumerated(EnumType.STRING)
+    private Status playerStatus;
+
 
     @ElementCollection
     private List<String> imageUrl;
